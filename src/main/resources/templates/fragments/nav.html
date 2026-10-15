@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="nav" class="navbar navbar-expand navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Mercado Express</a>
+        <div class="d-flex align-items-center">
+            <a class="text-light me-3 text-decoration-none" th:href="@{/}">Loja</a>
+            <a class="text-light text-decoration-none" th:href="@{/dashboard}">Dashboard</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

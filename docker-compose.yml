@@ -1,0 +1,17 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: mercado-express-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  postgres:
+    image: postgres:16
+    container_name: mercado-express-mensageria-db
+    environment:
+      POSTGRES_DB: mercado_express_cp5_mensageria
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"

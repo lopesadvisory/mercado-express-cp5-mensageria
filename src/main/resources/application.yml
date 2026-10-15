@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: mercado-express-mensageria
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/mercado_express_cp5_mensageria}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+  mail:
+    host: ${MAIL_HOST:smtp-relay.brevo.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: ${PORT:8084}
+
+banco:
+  tranquilo:
+    url: http://localhost:${server.port}/banco-tranquilo/pagamentos
+
+app:
+  email:
+    remetente: ${EMAIL_REMETENTE:hebert_lopes7@hotmail.com}

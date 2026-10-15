@@ -1,0 +1,15 @@
+Checkpoint 5 - Parte 2 (Microsserviços com RabbitMQ, API do Banco Tranquilo e e-mail)
+Curso: Análise e Desenvolvimento de Sistemas (TDS)
+Turma: 2TDSR
+Professor: Dr. Marcel Stefan Wagner
+
+Integrantes:
+NICOLAS MONTEIRO RAMIRO - RM 562380
+MARCUS VINICIUS VILA NOVA DA SILVA - RM 558771
+HEBERT LOPES DOS SANTOS - RM 563192
+
+IDE utilizada na elaboração do projeto:
+IntelliJ IDEA
+
+Link do GitHub (com o ReadMe do projeto):
+https://github.com/lopesadvisory/mercado-express-cp5-mensageria

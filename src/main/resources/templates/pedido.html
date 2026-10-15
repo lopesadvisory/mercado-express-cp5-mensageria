@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:if="${pedido.status.name() == 'PENDENTE'}" http-equiv="refresh" content="2">
+    <title>Mercado Express - Pedido</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <div class="card shadow-sm" style="max-width: 480px;">
+        <div class="card-body">
+            <h1 class="h4 mb-3">Pedido #<span th:text="${pedido.id}"></span></h1>
+
+            <p class="mb-1"><strong>Cliente:</strong> <span th:text="${pedido.clienteNome}"></span></p>
+            <p class="mb-1"><strong>Valor total:</strong> <span th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorTotal, 1, 2)}"></span></p>
+
+            <p class="mb-3">
+                <strong>Status:</strong>
+                <span th:if="${pedido.status.name() == 'PENDENTE'}" class="badge bg-warning text-dark">Processando pagamento...</span>
+                <span th:if="${pedido.status.name() == 'CONFIRMADO'}" class="badge bg-success">Pagamento confirmado</span>
+                <span th:if="${pedido.status.name() == 'RECUSADO'}" class="badge bg-danger">Pagamento recusado</span>
+            </p>
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between" th:each="item : ${pedido.itens}">
+                    <span th:text="${item.produto.nome} + ' x' + ${item.quantidade}"></span>
+                    <span th:text="${'R$ ' + #numbers.formatDecimal(item.precoUnitario.multiply(new java.math.BigDecimal(item.quantidade)), 1, 2)}"></span>
+                </li>
+            </ul>
+
+            <p th:if="${pedido.status.name() == 'CONFIRMADO'}" class="text-muted small">
+                Um e-mail de confirmação foi enviado para <span th:text="${pedido.clienteEmail}"></span>.
+            </p>
+
+            <a class="btn btn-outline-secondary btn-sm" th:href="@{/}">Voltar para a loja</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mercado Express - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1 class="mb-4">Dashboard da gerência</h1>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Pedidos</div>
+                <div class="h4" th:text="${totalPedidos}"></div>
+            </div></div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Confirmados</div>
+                <div class="h4 text-success" th:text="${confirmados}"></div>
+            </div></div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Recusados</div>
+                <div class="h4 text-danger" th:text="${recusados}"></div>
+            </div></div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Pendentes</div>
+                <div class="h4 text-warning" th:text="${pendentes}"></div>
+            </div></div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Receita</div>
+                <div class="h5" th:text="${'R$ ' + #numbers.formatDecimal(receitaTotal, 1, 2)}"></div>
+            </div></div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center shadow-sm"><div class="card-body">
+                <div class="text-muted small">Lucro</div>
+                <div class="h5" th:text="${'R$ ' + #numbers.formatDecimal(lucroTotal, 1, 2)}"></div>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm"><div class="card-body">
+                <h2 class="h6">Vendas por produto (unidades)</h2>
+                <canvas id="graficoVendas"></canvas>
+            </div></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm"><div class="card-body">
+                <h2 class="h6">Estoque atual por produto</h2>
+                <canvas id="graficoEstoque"></canvas>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="h6">Pedidos</h2>
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr><th>Id</th><th>Cliente</th><th>Valor</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="pedido : ${pedidos}">
+                    <td th:text="${pedido.id}"></td>
+                    <td th:text="${pedido.clienteNome}"></td>
+                    <td th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorTotal, 1, 2)}"></td>
+                    <td th:text="${pedido.status}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(pedidos)}">
+                    <td colspan="4" class="text-center text-muted">Nenhum pedido registrado ainda.</td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="text-muted small mb-0" th:text="${emailsEnviados} + ' e-mail(s) de confirmação registrados no banco.'"></p>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/chart.umd.js}"></script>
+<script th:inline="javascript">
+    const vendasPorProduto = /*[[${vendasPorProduto}]]*/ {};
+    const estoquePorProduto = /*[[${estoquePorProduto}]]*/ {};
+
+    new Chart(document.getElementById('graficoVendas'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(vendasPorProduto),
+            datasets: [{ label: 'Unidades vendidas', data: Object.values(vendasPorProduto), backgroundColor: '#0d6efd' }]
+        },
+        options: { plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById('graficoEstoque'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(estoquePorProduto),
+            datasets: [{ label: 'Estoque', data: Object.values(estoquePorProduto), backgroundColor: '#198754' }]
+        },
+        options: { plugins: { legend: { display: false } } }
+    });
+</script>
+</body>
+</html>

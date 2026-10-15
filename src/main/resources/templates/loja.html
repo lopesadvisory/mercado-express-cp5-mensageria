@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mercado Express - Loja</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1 class="mb-4">Produtos</h1>
+
+    <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+
+    <form th:action="@{/comprar}" method="post">
+        <table class="table table-striped bg-white shadow-sm align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Produto</th>
+                <th>Tipo</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Quantidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="produto : ${produtos}">
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.tipo}"></td>
+                <td th:text="${'R$ ' + #numbers.formatDecimal(produto.preco, 1, 2)}"></td>
+                <td th:text="${produto.estoque}"></td>
+                <td style="max-width: 100px;">
+                    <input type="number" min="0" th:max="${produto.estoque}" value="0"
+                           class="form-control form-control-sm"
+                           th:name="${'qtd_' + produto.id}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="card shadow-sm p-4" style="max-width: 480px;">
+            <h2 class="h5 mb-3">Finalizar compra</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" name="clienteNome" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" name="clienteEmail" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Número do cartão</label>
+                <input type="text" name="numeroCartao" class="form-control" placeholder="0000 0000 0000 0000" required>
+                <div class="form-text">Cartões terminados em 0000 são recusados pelo Banco Tranquilo (simulação).</div>
+            </div>
+
+            <button type="submit" id="finalizar" class="btn btn-primary">Finalizar compra</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

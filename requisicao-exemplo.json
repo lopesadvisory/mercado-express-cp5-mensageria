@@ -1,0 +1,8 @@
+{
+  "clienteNome": "Maria Compradora",
+  "clienteEmail": "maria.compradora@example.com",
+  "numeroCartao": "4111111111111234",
+  "itens": [
+    { "produtoId": 1, "quantidade": 2 }
+  ]
+}

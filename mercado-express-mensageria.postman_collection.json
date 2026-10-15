@@ -1,0 +1,55 @@
+{
+  "info": {
+    "name": "Mercado Express - Mensageria (CP5 Parte 2)",
+    "description": "Coleção de testes da API de pedidos integrada ao RabbitMQ e à API simulada do Banco Tranquilo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8084" }
+  ],
+  "item": [
+    {
+      "name": "Criar pedido - pagamento aprovado",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteNome\": \"Maria Compradora\",\n  \"clienteEmail\": \"maria.compradora@example.com\",\n  \"numeroCartao\": \"4111111111111234\",\n  \"itens\": [\n    { \"produtoId\": 1, \"quantidade\": 2 }\n  ]\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/pedidos", "host": [ "{{baseUrl}}" ], "path": [ "api", "pedidos" ] }
+      }
+    },
+    {
+      "name": "Criar pedido - pagamento recusado (cartão termina em 0000)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteNome\": \"Joao Recusado\",\n  \"clienteEmail\": \"joao.recusado@example.com\",\n  \"numeroCartao\": \"5500000000000000\",\n  \"itens\": [\n    { \"produtoId\": 2, \"quantidade\": 1 }\n  ]\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/pedidos", "host": [ "{{baseUrl}}" ], "path": [ "api", "pedidos" ] }
+      }
+    },
+    {
+      "name": "Consultar status do pedido",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/pedidos/1", "host": [ "{{baseUrl}}" ], "path": [ "api", "pedidos", "1" ] }
+      }
+    },
+    {
+      "name": "Banco Tranquilo - autorizar pagamento diretamente",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pedidoId\": 1,\n  \"valor\": 24.90,\n  \"numeroCartao\": \"4111111111111234\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/banco-tranquilo/pagamentos", "host": [ "{{baseUrl}}" ], "path": [ "banco-tranquilo", "pagamentos" ] }
+      }
+    }
+  ]
+}
