@@ -13,3 +13,14 @@ IntelliJ IDEA
 
 Link do GitHub (com o ReadMe do projeto):
 https://github.com/lopesadvisory/mercado-express-cp5-mensageria
+
+Link do vídeo (aproximadamente 5 a 7 minutos, mostrando o código e a aplicação rodando):
+[a preencher]
+
+Configuração do banco de dados (PostgreSQL), para a disciplina Java Advanced:
+Host: localhost
+Porta: 5432
+Banco: mercado_express_cp5_mensageria
+Usuário: postgres
+Senha: postgres
+(sobe automaticamente com "docker compose up -d", usando o docker-compose.yml que está na raiz do projeto entregue)
