@@ -12,6 +12,8 @@ Este projeto simula a integração de pagamentos do Mercado Express: uma compra 
 
 IDE utilizada no desenvolvimento: **IntelliJ IDEA**.
 
+Link do video: Link do vídeo: https://youtu.be/p5rEKQWcWsE?is=Nq35S3s46llxyU43
+
 ## Tecnologias utilizadas
 
 - Java 17
